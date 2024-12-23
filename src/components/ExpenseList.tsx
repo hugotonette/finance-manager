@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { categories, Expense } from "../common/interfaces";
 
 const groupExpensesByDate = () => {
   const expenses = JSON.parse(localStorage.getItem("expenses") || "[]");
 
-  return expenses.reduce((acc: any, expense: any) => {
+  const groupedExpenses = expenses.reduce((acc: any, expense: any) => {
     const dateKey = new Date(expense.date).toLocaleDateString();
     if (!acc[dateKey]) {
       acc[dateKey] = [];
@@ -13,6 +12,15 @@ const groupExpensesByDate = () => {
     acc[dateKey].push(expense);
     return acc;
   }, {} as Record<string, Expense[]>);
+
+  Object.keys(groupedExpenses).forEach((date) => {
+    groupedExpenses[date].sort(
+      (a: any, b: any) =>
+        new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+  });
+
+  return groupedExpenses;
 };
 
 const ExpenseList = () => {
@@ -23,10 +31,6 @@ const ExpenseList = () => {
 
   return (
     <>
-      {/*
-      CHANGE HERE SO THAT INCOME SNAP RIGHT AND EXPENSE SNAP LEFT
-      ADD A ICON FOR INCOME AND EXPENSE
-    */}
       <div className="mt-4">
         {sortedDates.map((date) => (
           <div key={date} className="text-gray-500 dark:text-gray-400">
