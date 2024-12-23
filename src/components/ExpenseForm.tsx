@@ -13,15 +13,26 @@ const ExpenseForm = ({
   const [type, setType] = useState("expense");
   const [category, setCategory] = useState("");
 
+  const user = JSON.parse(localStorage.getItem("loggedInUser") || "{}");
+
+  const getNextExpenseId = () => {
+    const expenses = JSON.parse(localStorage.getItem("expenses") || "[]");
+    const lastExpense =
+      expenses.length > 0 ? expenses[expenses.length - 1] : null;
+    return lastExpense ? lastExpense.id + 1 : 1;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (amount) {
       onAdd({
-        amount: parseFloat(amount),
-        categories,
+        id: getNextExpenseId(),
         type,
+        categoryId: category,
+        amount: parseFloat(amount),
         date: new Date(),
+        user: user.username,
       });
       setAmount("");
       setCategory("");
