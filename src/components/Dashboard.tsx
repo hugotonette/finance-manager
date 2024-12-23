@@ -4,8 +4,10 @@ import ExpenseForm from "./ExpenseForm";
 import ExpenseList from "./ExpenseList";
 import ExpenseChart from "./ExpenseChart";
 import { expensesList } from "../common/mockExpenses";
+import BottomOverlay from "./BottomOverlay";
 
 const Dashboard = () => {
+  const [overlayOpen, setOverlayOpen] = useState(false);
   const user = JSON.parse(localStorage.getItem("loggedInUser") || "[]");
 
   const [expenses, setExpenses] = useState<any[]>(() => {
@@ -28,10 +30,41 @@ const Dashboard = () => {
           Welcome, {user.name} {user.surname}
         </h1>
         <h2 className="text-1xl font-bold">Dashboard</h2>
-        <ExpenseForm onAdd={handleAddExpense} />
         <ExpenseList />
         <ExpenseChart expenses={expenses} />
       </div>
+
+      {/* floating button */}
+      <button
+        onClick={() => setOverlayOpen(true)}
+        className="fixed bottom-5 right-5 p-4 font-black text-white rounded-full shadow-lg bg-green-500"
+      >
+        <svg
+          width="35"
+          height="35"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M12 5l0 14" />
+          <path d="M5 12l14 0" />
+        </svg>
+      </button>
+
+      <BottomOverlay
+        overlayOpen={overlayOpen}
+        setOverlayOpen={setOverlayOpen}
+        content={
+          <ExpenseForm
+            onAdd={handleAddExpense}
+            setOverlayOpen={setOverlayOpen}
+          />
+        }
+      />
     </>
   );
 };

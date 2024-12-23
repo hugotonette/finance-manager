@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import React, { useState } from "react";
 import { categories } from "../common/interfaces";
 
-const ExpenseForm = ({ onAdd }: { onAdd: (expense: any) => void }) => {
+const ExpenseForm = ({
+  onAdd,
+  setOverlayOpen,
+}: {
+  onAdd: (expense: any) => void;
+  setOverlayOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("expense");
   const [category, setCategory] = useState("");
@@ -20,6 +26,7 @@ const ExpenseForm = ({ onAdd }: { onAdd: (expense: any) => void }) => {
       setAmount("");
       setCategory("");
       setType("");
+      setOverlayOpen(false);
     } else {
       alert("Error");
     }
