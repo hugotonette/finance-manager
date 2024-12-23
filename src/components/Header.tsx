@@ -6,6 +6,12 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    localStorage.removeItem("loggedInUser");
+    navigate("/");
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <header className="flex items-center justify-between px-4 py-4 bg-gray-100 dark:bg-gray-800 shadow-lg z-40">
       <div className="flex items-center space-x-4">
@@ -90,6 +96,14 @@ const Header = () => {
               className="hover:underline"
             >
               Contact Us
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={handleLogout}
+              className="hover:underline font-bold text-red-500"
+            >
+              Logout
             </button>
           </li>
         </ul>
