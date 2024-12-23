@@ -25,5 +25,5 @@ export const categories = [
   { id: 7, name: "Transfers" },
   { id: 8, name: "Shopping" },
   { id: 9, name: "Entertainment" },
-  { id: 99, name: "Others" },
+  { id: 99, name: "-" },
 ];

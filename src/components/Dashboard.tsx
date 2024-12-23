@@ -29,7 +29,7 @@ const Dashboard = () => {
         </h1>
         <h2 className="text-1xl font-bold">Dashboard</h2>
         <ExpenseForm onAdd={handleAddExpense} />
-        <ExpenseList expenses={expenses} />
+        <ExpenseList />
         <ExpenseChart expenses={expenses} />
       </div>
     </>

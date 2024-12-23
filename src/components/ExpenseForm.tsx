@@ -15,7 +15,7 @@ const ExpenseForm = ({ onAdd }: { onAdd: (expense: any) => void }) => {
         amount: parseFloat(amount),
         categories,
         type,
-        date: new Date().toDateString(),
+        date: new Date(),
       });
       setAmount("");
       setCategory("");
@@ -39,15 +39,16 @@ const ExpenseForm = ({ onAdd }: { onAdd: (expense: any) => void }) => {
           className="w-full p-2 bg-transparent border-2 rounded-lg border-gray-800 dark:border-gray-100"
         />
         <select
-          value={category}
+          value={type === "income" ? "99" : category}
           onChange={(e) => setCategory(e.target.value)}
+          disabled={type === "income"}
           className="w-full p-2 bg-transparent border-2 rounded-lg border-gray-800 dark:border-gray-100"
         >
           <option key="0" value="" className="text-black">
             Select a category
           </option>
           {categories.map((cat) => (
-            <option key={cat.id} value={cat.name} className="text-black">
+            <option key={cat.id} value={cat.id} className="text-black">
               {cat.name}
             </option>
           ))}
