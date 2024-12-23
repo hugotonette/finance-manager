@@ -30,7 +30,7 @@ const Landing = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-center h-[80vh]">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 font-serif">
+        <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 font-serif">
           Welcome
         </h1>
         <div className="mt-6 space-x-4">

@@ -21,9 +21,7 @@ const Register = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-center gap-5">
-        <h1 className="text-2xl font-bold mb-4 text-white dark:text-black">
-          Register
-        </h1>
+        <h1 className="text-2xl font-bold mb-4">Register</h1>
         <form
           onSubmit={handleRegister}
           className="flex flex-col gap-4 max-w-xs w-9/12 mx-auto justify-center items-center"
@@ -37,12 +35,12 @@ const Register = () => {
               onChange={(e) =>
                 setFormData({ ...formData, [field]: e.target.value })
               }
-              className="input p-2 bg-transparent border-2 rounded-lg border-gray-100 dark:border-gray-800"
+              className="input p-2 bg-transparent border-2 rounded-lg border-gray-800 dark:border-gray-100"
             />
           ))}
           <button
             type="submit"
-            className="w-fit rounded-lg py-2 px-6 shadow-md hover:shadow-none text-black bg-gray-100 hover:bg-opacity-90 dark:text-white dark:bg-gray-800 dark:hover:bg-opacity-90"
+            className="w-fit rounded-lg py-2 px-6 shadow-md hover:shadow-none text-white bg-gray-800 hover:bg-opacity-90 dark:text-black dark:bg-gray-100 dark:hover:bg-opacity-90"
           >
             Submit
           </button>
