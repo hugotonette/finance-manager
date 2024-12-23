@@ -43,6 +43,17 @@ const Header = () => {
         </svg>
       </button>
 
+      {/* darken overlay */}
+      <div
+        className={`fixed top-0 left-0 bg-black ${
+          isMenuOpen
+            ? "opacity-50 right-0 bottom-0 transition-opacity"
+            : "opacity-0"
+        }`}
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+      />
+
+      {/* Side Menu */}
       <nav
         className={`flex flex-col gap-5 pt-5 fixed top-0 -right-1 w-64 h-full text-gray-800 bg-gray-100 dark:text-gray-100 dark:bg-gray-800 shadow-xl z-50 transition-transform transform ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
