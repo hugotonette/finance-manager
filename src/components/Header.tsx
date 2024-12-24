@@ -69,7 +69,10 @@ const Header = () => {
         </div>
         <div className="flex justify-center items-center w-full">
           <button
-            onClick={() => navigate("/profile")}
+            onClick={() => {
+              navigate("/profile");
+              setIsMenuOpen(false);
+            }}
             className="p-5 rounded-full w-24 h-24 bg-red-200 drop-shadow-md"
           >
             Profile

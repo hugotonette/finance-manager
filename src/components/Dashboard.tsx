@@ -1,20 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ExpenseForm from "./ExpenseForm";
 import ExpenseList from "./ExpenseList";
 import ExpenseChart from "./ExpenseChart";
 import { expensesList } from "../common/mockExpenses";
 import BottomOverlay from "./BottomOverlay";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [overlayOpen, setOverlayOpen] = useState(false);
   const user = JSON.parse(localStorage.getItem("loggedInUser") || "[]");
+  const isLoggedIn = localStorage.getItem("loggedInUser");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate]);
 
   const [expenses, setExpenses] = useState<any[]>(() => {
     const savedExpenses = localStorage.getItem("expenses");
-    return savedExpenses
-      ? JSON.parse(savedExpenses)
-      : localStorage.setItem("expenses", JSON.stringify(expensesList));
+
+    return isLoggedIn
+      ? savedExpenses
+        ? JSON.parse(savedExpenses)
+        : localStorage.setItem("expenses", JSON.stringify(expensesList))
+      : [];
   });
 
   const handleAddExpense = (expense: any) => {

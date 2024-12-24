@@ -7,8 +7,8 @@ import BottomOverlay from "./BottomOverlay";
 const Landing = () => {
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("loggedInUser");
-  const [loginSelect, setLoginSelect] = useState(false);
   const [overlayOpen, setOverlayOpen] = useState(false);
+  const [loginSelect, setLoginSelect] = useState(false);
 
   const selectLogin = () => {
     setLoginSelect(true);
