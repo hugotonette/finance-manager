@@ -37,13 +37,12 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="flex flex-col mt-4 gap-4 p-4 text-gray-900 dark:text-gray-100">
+      <div className="flex flex-col mt-4 gap-4 p-4 max-w-lg mx-auto text-gray-900 dark:text-gray-100">
         <h1 className="text-2xl font-bold">
           Welcome, {user.name} {user.surname}
         </h1>
-        <h2 className="text-1xl font-bold">Dashboard</h2>
-        <ExpenseList />
         <ExpenseChart expenses={expenses} />
+        <ExpenseList />
       </div>
 
       {/* floating button */}

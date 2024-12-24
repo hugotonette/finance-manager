@@ -8,6 +8,7 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("loggedInUser");
+    localStorage.removeItem("expenses");
     navigate("/");
     setIsMenuOpen(!isMenuOpen);
   };
@@ -73,16 +74,16 @@ const Header = () => {
               navigate("/profile");
               setIsMenuOpen(false);
             }}
-            className="p-5 rounded-full w-24 h-24 bg-red-200 drop-shadow-md"
+            className="p-5 rounded-full w-24 h-24 text-gray-800 bg-red-200 drop-shadow-md"
           >
-            Profile
+            Profile pic
           </button>
         </div>
         <ul className="flex flex-col gap-4 items-end p-4 pr-10 space-y-4 text-lg">
           <li>
             <button
               onClick={() => {
-                navigate("/");
+                navigate("/dashboard");
                 setIsMenuOpen(false);
               }}
               className="hover:underline"
@@ -99,17 +100,6 @@ const Header = () => {
               className="hover:underline"
             >
               About
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => {
-                navigate("/contact");
-                setIsMenuOpen(false);
-              }}
-              className="hover:underline"
-            >
-              Contact Us
             </button>
           </li>
           <li>
