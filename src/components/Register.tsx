@@ -10,7 +10,6 @@ const Register = () => {
     surname: "",
     email: "",
   });
-  const navigate = useNavigate();
   const [userCreated, setUserCreated] = useState(false);
 
   const handleRegister = () => {
