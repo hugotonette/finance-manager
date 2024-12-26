@@ -26,24 +26,24 @@ const Landing = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center gap-4 justify-center h-[80vh]">
-        <div className="flex flex-col w-full p-8 items-center text-gray-800 dark:text-gray-100">
+      <div className="flex flex-col items-center gap-4 justify-center h-[80vh] text-gray-800 dark:text-gray-100">
+        <div className="flex flex-col w-full p-8 items-center">
           <h1 className="text-4xl font-bold font-serif">Welcome</h1>
           <span className="text-center mt-4">
             <p>Take control of your finances with CashFlow</p>
             <p>your personal finance manager.</p>
           </span>
         </div>
-        <div className="space-x-4">
+        <div className="space-x-4 font-semibold">
           <button
             onClick={selectLogin}
-            className="px-2 py-1 border-2 rounded-md border-gray-800 text-black dark:border-gray-100 dark:text-white"
+            className="px-2 py-1 border-2 rounded-md border-gray-800 dark:border-gray-100 shadow hover:shadow-inner hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             Login
           </button>
           <button
             onClick={selectRegistrer}
-            className="px-2 py-1 border-2 rounded-md border-gray-800 text-black dark:border-gray-100 dark:text-white"
+            className="px-2 py-1 border-2 rounded-md border-gray-800 dark:border-gray-100 shadow hover:shadow-inner hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             Register
           </button>

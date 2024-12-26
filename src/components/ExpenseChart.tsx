@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import {
+  Area,
+  AreaChart,
   CartesianGrid,
   Cell,
   Legend,
-  Line,
-  LineChart,
   Pie,
   PieChart,
   ResponsiveContainer,
@@ -16,16 +16,17 @@ import {
 import { categories, Expense } from "../common/interfaces";
 
 const graphColors = [
-  "#ef4444",
-  "#3b82f6",
-  "#10b981",
-  "#f59e0b",
-  "#8b5cf6",
-  "#ec4899",
-  "#14b8a6",
-  "#6366f1",
-  "#f97316",
-  "#84cc16",
+  "#f7eded", // orange-50
+  "#ffedd5", // orange-100
+  "#fed7aa", // orange-200
+  "#fdba74", // orange-300
+  "#fb923c", // orange-400
+  "#f97316", // orange-500
+  "#ea580c", // orange-600
+  "#c2410c", // orange-700
+  "#9a3412", // orange-800
+  "#7c2d12", // orange-900
+  "#431407", // orange-950
 ];
 
 const ExpenseChart = () => {
@@ -144,17 +145,35 @@ const ExpenseChart = () => {
 
       return (
         <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" />
+          <AreaChart data={data}>
+            <defs>
+              <linearGradient id="colorExp" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#fb923c" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#fb923c" stopOpacity={0} />
+              </linearGradient>
+              <linearGradient id="colorInc" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#22c55e" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#22c55e" stopOpacity={0} />
+              </linearGradient>
+            </defs>
             <XAxis dataKey="date" />
             <YAxis />
+            <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
             <Legend />
-            {/* Change line color for income to Tailwind green-500 (#22c55e) */}
-            <Line type="monotone" dataKey="expense" stroke="#ef4444" />
-            <Line type="monotone" dataKey="income" stroke="#22c55e" />{" "}
-            {/* Tailwind Green-500 */}
-          </LineChart>
+            <Area
+              type="monotone"
+              dataKey="expense"
+              stroke="#ea580c"
+              fill="url(#colorExp)"
+            />
+            <Area
+              type="monotone"
+              dataKey="income"
+              stroke="#16a34a"
+              fill="url(#colorInc)"
+            />
+          </AreaChart>
         </ResponsiveContainer>
       );
     } else if (selectedChart === "pie") {
@@ -167,23 +186,21 @@ const ExpenseChart = () => {
               data={data}
               dataKey="value"
               nameKey="name"
-              cx="50%"
-              cy="50%"
               outerRadius={100}
+              innerRadius={55}
               fill="#8884d8"
-              label={({ name }) => name}
+              label={({ name }) =>
+                name.length > 7 ? `${name.slice(0, 7)}...` : `${name}`
+              }
             >
-              {data.map((entry, index) => (
+              {data.map((_entry, index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={graphColors[index % graphColors.length]}
                 />
               ))}
             </Pie>
-            <Tooltip
-              formatter={(value: number) => `€${value.toFixed(2)}`}
-              labelFormatter={(name: string) => name}
-            />
+            <Tooltip formatter={(value: number) => `€${value.toFixed(2)}`} />
           </PieChart>
         </ResponsiveContainer>
       );
@@ -194,54 +211,52 @@ const ExpenseChart = () => {
 
   return (
     <div className="space-y-6 py-6">
-      <div className="flex justify-between items-center w-full">
-        <div>
-          <button
-            onClick={() =>
-              setSelectedChart(selectedChart === "line" ? "pie" : "line")
-            }
-            className="bg-blue-500 text-sm font-medium px-2 rounded shadow"
-          >
-            {selectedChart === "line" ? "By Category" : "Show Balance"}
-          </button>
-        </div>
-        <div className="w-fit text-center text-sm drop-shadow-2xl font-medium border-gray-200 dark:border-gray-800">
+      <div className="flex justify-between items-center w-full text-white">
+        <button
+          onClick={() =>
+            setSelectedChart(selectedChart === "line" ? "pie" : "line")
+          }
+          className="bg-blue-500 dark:bg-blue-600 hover:bg-blue-400 dark:hover:bg-blue-500 shadow hover:shadow-inner text-xs font-medium tracking-widest px-3 py-1 rounded"
+        >
+          {selectedChart === "line" ? "By Category" : "Show Balance"}
+        </button>
+        <div className="w-fit text-center text-xs font-medium tracking-widest rounded shadow bg-blue-500 dark:bg-blue-600">
           <button
             onClick={() => setViewOption("week")}
-            className={`border-r-2 border-inherit px-3 rounded-l ${
+            className={`px-3 py-1 rounded-l hover:bg-blue-400 dark:hover:bg-blue-500 hover:shadow-inner ${
               viewOption === "week"
-                ? "shadow-inner bg-green-700"
-                : "bg-green-500"
+                ? "shadow-inner bg-blue-400 dark:bg-blue-500"
+                : ""
             }`}
           >
             week
           </button>
           <button
             onClick={() => setViewOption("month")}
-            className={`border-r-2 border-inherit px-3 ${
+            className={`px-3 py-1 hover:bg-blue-400 dark:hover:bg-blue-500 hover:shadow-inner ${
               viewOption === "month"
-                ? "shadow-inner bg-green-700"
-                : " bg-green-500"
+                ? "shadow-inner bg-blue-400 dark:bg-blue-500"
+                : ""
             }`}
           >
             month
           </button>
           <button
             onClick={() => setViewOption("year")}
-            className={`border-r-2 border-inherit px-3 ${
+            className={`px-3 py-1  hover:bg-blue-400 dark:hover:bg-blue-500 hover:shadow-inner ${
               viewOption === "year"
-                ? "shadow-inner bg-green-700"
-                : " bg-green-500"
+                ? "shadow-inner bg-blue-400 dark:bg-blue-500"
+                : ""
             }`}
           >
             year
           </button>
           <button
             onClick={() => setViewOption("all")}
-            className={`px-3 rounded-r ${
+            className={`px-3 py-1 rounded-r hover:bg-blue-400 dark:hover:bg-blue-500 hover:shadow-inner ${
               viewOption === "all"
-                ? "shadow-inner bg-green-700"
-                : " bg-green-500"
+                ? "shadow-inner bg-blue-400 dark:bg-blue-500"
+                : ""
             }`}
           >
             all
