@@ -5,6 +5,7 @@ import ThemeSwitcher from "./ThemeSwitcher";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const isLoggedIn = localStorage.getItem("loggedInUser");
 
   const handleLogout = () => {
     localStorage.removeItem("loggedInUser");
@@ -23,26 +24,30 @@ const Header = () => {
           CashFlow
         </h1>
       </div>
-      <button
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className="p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none"
-      >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+      {isLoggedIn ? (
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none"
         >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M4 6l16 0" />
-          <path d="M4 12l16 0" />
-          <path d="M4 18l16 0" />
-        </svg>
-      </button>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M4 6l16 0" />
+            <path d="M4 12l16 0" />
+            <path d="M4 18l16 0" />
+          </svg>
+        </button>
+      ) : (
+        <div></div>
+      )}
 
       {/* darken overlay */}
       <div
