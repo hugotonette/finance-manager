@@ -6,6 +6,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [fieldError, setFieldError] = useState(false);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,7 +20,7 @@ const Login = () => {
       localStorage.setItem("loggedInUser", JSON.stringify(hasUser));
       navigate("/");
     } else {
-      alert("Invalid username or password. Please try again.");
+      setFieldError(true);
     }
   };
 
@@ -45,6 +46,11 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             className="input p-2 bg-transparent border-2 rounded-lg border-gray-800 dark:border-gray-100"
           />
+          {fieldError ? (
+            <p className="text-red-500">User not found. Please try again!</p>
+          ) : (
+            <></>
+          )}
           <button
             type="submit"
             className="w-fit rounded-lg py-2 px-6 shadow-md hover:shadow-none text-white bg-gray-800 hover:bg-opacity-90 dark:text-black dark:bg-gray-100 dark:hover:bg-opacity-90"

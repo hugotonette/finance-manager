@@ -12,6 +12,7 @@ const ExpenseForm = ({
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("expense");
   const [category, setCategory] = useState("");
+  const [hasError, setHasError] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("loggedInUser") || "{}");
 
@@ -24,6 +25,7 @@ const ExpenseForm = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setHasError(false);
 
     if (amount) {
       onAdd({
@@ -39,7 +41,7 @@ const ExpenseForm = ({
       setType("");
       setOverlayOpen(false);
     } else {
-      alert("Error");
+      setHasError(true);
     }
   };
 
@@ -51,6 +53,7 @@ const ExpenseForm = ({
       >
         <input
           type="number"
+          min={0}
           placeholder="Amount"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
@@ -83,6 +86,11 @@ const ExpenseForm = ({
             Income
           </option>
         </select>
+        {hasError ? (
+          <p className="text-red-500">Please, enter a valid amount.</p>
+        ) : (
+          <></>
+        )}
         <button
           type="submit"
           className="rounded-md bg-green-500 text-white py-2 px-4"

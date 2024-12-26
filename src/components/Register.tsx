@@ -11,17 +11,24 @@ const Register = () => {
     email: "",
   });
   const navigate = useNavigate();
+  const [userCreated, setUserCreated] = useState(false);
 
   const handleRegister = () => {
-    // const users = JSON.parse(localStorage.getItem("users") || "[]");
-    alert("User registered!");
-    navigate("/");
+    setUserCreated(true);
   };
 
   return (
     <>
       <div className="flex flex-col items-center justify-center gap-5">
         <h1 className="text-2xl font-bold mb-4">Register</h1>
+        {userCreated ? (
+          <p className="text-green-500">
+            This is a work in progress. User was
+            <span className="font-medium underline"> NOT</span> created.
+          </p>
+        ) : (
+          <></>
+        )}
         <form
           onSubmit={handleRegister}
           className="flex flex-col gap-4 max-w-xs w-9/12 mx-auto justify-center items-center"
