@@ -27,7 +27,7 @@ const ExpenseForm = ({
     e.preventDefault();
     setHasError(false);
 
-    if (amount) {
+    if (amount && parseFloat(amount) > 0) {
       onAdd({
         id: getNextExpenseId(),
         type,
